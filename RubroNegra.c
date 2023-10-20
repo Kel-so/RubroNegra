@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Estrutura de um nó da árvore
+// Integrantes:
+// Kelson Felipe Budin de Almeida - 2312697
+// Amanda Moura Cavalcante - 2261049 
+
+// Estrutura de um nï¿½ da ï¿½rvore
 typedef struct Node {
     int data;
     struct Node* parent;
@@ -10,18 +14,18 @@ typedef struct Node {
     int color;  // 0 for Black, 1 for Red
 } Node;
 
-// Função para criar um novo nó
+// Funï¿½ï¿½o para criar um novo nï¿½
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = data;
     newNode->parent = NULL;
     newNode->left = NULL;
     newNode->right = NULL;
-    newNode->color = 1;  // Novos nós são sempre vermelhos
+    newNode->color = 1;  // Novos nï¿½s sï¿½o sempre vermelhos
     return newNode;
 }
 
-// Função para realizar uma rotação à esquerda
+// Funï¿½ï¿½o para realizar uma rotaï¿½ï¿½o ï¿½ esquerda
 void leftRotate(Node** root, Node* x) {
     Node* y = x->right;
     x->right = y->left;
@@ -38,7 +42,7 @@ void leftRotate(Node** root, Node* x) {
     x->parent = y;
 }
 
-// Função para realizar uma rotação à direita
+// Funï¿½ï¿½o para realizar uma rotaï¿½ï¿½o ï¿½ direita
 void rightRotate(Node** root, Node* y) {
     Node* x = y->left;
     y->left = x->right;
@@ -55,7 +59,7 @@ void rightRotate(Node** root, Node* y) {
     y->parent = x;
 }
 
-// Função para balancear a árvore após a inserção de um nó
+// Funï¿½ï¿½o para balancear a ï¿½rvore apï¿½s a inserï¿½ï¿½o de um nï¿½
 void fixInsertion(Node** root, Node* newNode) {
     Node* parent = NULL;
     Node* grandparent = NULL;
@@ -64,18 +68,18 @@ void fixInsertion(Node** root, Node* newNode) {
         parent = newNode->parent;
         grandparent = parent->parent;
 
-        // Caso 1: O pai do novo nó é filho esquerdo do avô
+        // Caso 1: O pai do novo nï¿½ ï¿½ filho esquerdo do avï¿½
         if (parent == grandparent->left) {
             Node* uncle = grandparent->right;
 
-            // Caso 1.1: O tio do novo nó é vermelho, apenas recolorir
+            // Caso 1.1: O tio do novo nï¿½ ï¿½ vermelho, apenas recolorir
             if (uncle != NULL && uncle->color == 1) {
                 grandparent->color = 1;
                 parent->color = 0;
                 uncle->color = 0;
                 newNode = grandparent;
             } else {
-                // Caso 1.2: O tio do novo nó é preto, rotação
+                // Caso 1.2: O tio do novo nï¿½ ï¿½ preto, rotaï¿½ï¿½o
                 if (newNode == parent->right) {
                     leftRotate(root, parent);
                     newNode = parent;
@@ -87,17 +91,17 @@ void fixInsertion(Node** root, Node* newNode) {
                 grandparent->color = temp;
                 newNode = parent;
             }
-        } else {  // Caso 2: O pai do novo nó é filho direito do avô
+        } else {  // Caso 2: O pai do novo nï¿½ ï¿½ filho direito do avï¿½
             Node* uncle = grandparent->left;
 
-            // Caso 2.1: O tio do novo nó é vermelho, apenas recolorir
+            // Caso 2.1: O tio do novo nï¿½ ï¿½ vermelho, apenas recolorir
             if ((uncle != NULL) && (uncle->color == 1)) {
                 grandparent->color = 1;
                 parent->color = 0;
                 uncle->color = 0;
                 newNode = grandparent;
             } else {
-                // Caso 2.2: O tio do novo nó é preto, rotação
+                // Caso 2.2: O tio do novo nï¿½ ï¿½ preto, rotaï¿½ï¿½o
                 if (newNode == parent->left) {
                     rightRotate(root, parent);
                     newNode = parent;
@@ -112,15 +116,15 @@ void fixInsertion(Node** root, Node* newNode) {
         }
     }
 
-    (*root)->color = 0; // Raiz sempre é preta
+    (*root)->color = 0; // Raiz sempre ï¿½ preta
 }
 
-// Função para inserir um nó na árvore
+// Funï¿½ï¿½o para inserir um nï¿½ na ï¿½rvore
 void insert(Node** root, int data) {
-    // Criação do nó
+    // Criaï¿½ï¿½o do nï¿½
     Node* newNode = createNode(data);
 
-    // Inserção similar a uma árvore binária de busca
+    // Inserï¿½ï¿½o similar a uma ï¿½rvore binï¿½ria de busca
     Node* current = *root;
     Node* parent = NULL;
 
@@ -140,11 +144,11 @@ void insert(Node** root, int data) {
     else
         parent->right = newNode;
 
-    // Chama a função para balancear a árvore após a inserção
+    // Chama a funï¿½ï¿½o para balancear a ï¿½rvore apï¿½s a inserï¿½ï¿½o
     fixInsertion(root, newNode);
 }
 
-// Função para buscar um nó na árvore
+// Funï¿½ï¿½o para buscar um nï¿½ na ï¿½rvore
 Node* search(Node* root, int data) {
     if (root == NULL || root->data == data)
         return root;
@@ -155,7 +159,7 @@ Node* search(Node* root, int data) {
     return search(root->right, data);
 }
 
-// Função para imprimir a árvore (em ordem)
+// Funï¿½ï¿½o para imprimir a ï¿½rvore (em ordem)
 void inOrderTraversal(Node* root) {
     if (root == NULL)
         return;
@@ -174,16 +178,16 @@ int main() {
     insert(&root, 15);
     insert(&root, 30);
 
-    printf("Árvore Rubro-Negra (in-order): ");
+    printf("ï¿½rvore Rubro-Negra (in-order): ");
     inOrderTraversal(root);
     printf("\n");
 
     int searchValue = 15;
     Node* result = search(root, searchValue);
     if (result != NULL)
-        printf("Valor %d encontrado na árvore.\n", searchValue);
+        printf("Valor %d encontrado na ï¿½rvore.\n", searchValue);
     else
-        printf("Valor %d não encontrado na árvore.\n", searchValue);
+        printf("Valor %d nï¿½o encontrado na ï¿½rvore.\n", searchValue);
 
     return 0;
 }
